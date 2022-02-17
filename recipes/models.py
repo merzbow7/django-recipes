@@ -12,7 +12,7 @@ class IngredientName(models.Model):
 
 
 class Ingredient(models.Model):
-    name = models.ForeignKey(IngredientName, on_delete=models.PROTECT)
+    name = models.ForeignKey(IngredientName, on_delete=models.CASCADE)
     count = models.CharField(max_length=25, blank=False)
     recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name="ingredients")
 
