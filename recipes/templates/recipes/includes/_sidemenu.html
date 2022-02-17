@@ -1,0 +1,18 @@
+<aside class="col-md-3">
+    <div class="p-4">
+        <label class="fst-italic" for="filter">Фильтрация:</label>
+        <form action="{% url 'recipes_filter' %}" method="get">
+            <select class="form-select mb-2" aria-label="filter" name="choose">
+                <option value="recipe" selected>Блюда</option>
+                <option value="ingredient">Ингредиенты</option>
+            </select>
+            <input type="text" class="form-control mb-2" aria-label="filter" name="query">
+            <div class="btn-group">
+                <button class="btn btn-primary" name="btn" value="filter">Фильтровать</button>
+                <button class="btn btn-warning" name="btn" value="reset">Сброс</button>
+            </div>
+        </form>
+    </div>
+</aside>
+
+

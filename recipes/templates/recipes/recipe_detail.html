@@ -1,0 +1,27 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+    <section class="container p-5">
+        <h4 class="text-center">
+            {{ object.title }}
+        </h4>
+        <div>
+            <p class="my-3">{{ object.description }}</p>
+            <h5 class="text-center">Ингредиенты:</h5>
+            <ul class="my-2">
+                {% for ingredient in object.ingredients.all %}
+                    <li>
+                        {{ ingredient.name }}:
+                        {{ ingredient.count }}
+                        {{ ingredient.unit }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <h5 class="text-center">Приготовление:</h5>
+            <p>
+                {{ recipe.cooking|linebreaksbr }}
+            </p>
+        </div>
+
+    </section>
+{% endblock %}

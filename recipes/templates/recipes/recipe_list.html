@@ -1,0 +1,23 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+    <div class="col-md-9">
+        {% for recipe in object_list %}
+            <div class="card mb-2 border border-dark">
+                <div class="card-body">
+                    <div class="card-title">
+                        <a href="{{ recipe.get_absolute_url }}"
+                           class="link-secondary text-decoration-none">
+                            <h5>{{ recipe.title }}</h5>
+                        </a>
+                    </div>
+                    <p class="card-text">{{ recipe.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block side %}
+    {% include 'recipes/includes/_sidemenu.html' %}
+{% endblock %}
+
