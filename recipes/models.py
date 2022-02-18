@@ -14,7 +14,6 @@ class IngredientName(models.Model):
 class Ingredient(models.Model):
     name = models.ForeignKey(IngredientName, on_delete=models.CASCADE)
     count = models.CharField(max_length=25, blank=False)
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name="ingredients")
 
     class Meta:
         app_label = 'recipes'
@@ -27,8 +26,9 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255, blank=False, db_index=True)
-    description = models.TextField(default='')
-    cooking = models.TextField(default='')
+    description = models.TextField()
+    cooking = models.TextField()
+    ingredients = models.ManyToManyField(Ingredient, blank=True)
     slug = models.SlugField(max_length=255, blank=True)
 
     class Meta:
