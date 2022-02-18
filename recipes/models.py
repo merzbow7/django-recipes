@@ -5,10 +5,10 @@ from django.urls import reverse
 
 
 class IngredientName(models.Model):
-    name = models.CharField(max_length=255, blank=False, db_index=True)
+    ing_name = models.CharField(max_length=255, blank=False, db_index=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.ing_name}"
 
 
 class Ingredient(models.Model):
@@ -22,14 +22,14 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ingredients'
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name.ing_name}"
 
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255, blank=False, db_index=True)
     description = models.TextField(default='')
     cooking = models.TextField(default='')
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    slug = models.SlugField(max_length=255, blank=True)
 
     class Meta:
         app_label = 'recipes'
