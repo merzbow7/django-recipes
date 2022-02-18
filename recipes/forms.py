@@ -10,47 +10,46 @@ class RecipeForm(forms.ModelForm):
         required=False,
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        if self.instance.id:
+        if self.instance:
             self.prepopulate_ingredients()
 
-    def prepopulate_ingredients(self):
+    def prepopulate_ingredients(self) -> None:
         """Fill ingredients field."""
         list_ings = self.get_list_ings()
         self.fields['ingredients_list'].initial = "\n".join(list_ings)
 
-    def get_list_ings(self):
+    def get_list_ings(self) -> list[str]:
         """Get ingredients list of current recipe."""
-        ings = self.instance.ingredients.all()
-        return [f"{ing.name} - {ing.count}" for ing in ings]
+        self.instance: Recipe
+        ings = self.instance.ingredient_set.all()
 
-    @staticmethod
-    def create_ing_name(name):
+        return [f"{ing.ingredientname_set.name} - {ing.count}" for ing in ings]
+
+    def create_ing_name(self, name: str, ing) -> None:
         """Create instance of IngredientName."""
-        return IngredientName.objects.get_or_create(ing_name=name)[0]
-
-    def create_ings_obj(self, ing_id, count):
-        """Create instance of Ingredient."""
-        ing = Ingredient.objects.get_or_create(
-            name_id=ing_id.id,
-            count=count
+        IngredientName.objects.get_or_create(
+            name=name,
+            ingredient=ing
         )
-        return ing[0]
+
+    def create_ings_obj(self, name: str, count: str) -> Ingredient:
+        """Create instance of Ingredient."""
+        self.instance: Recipe
+        ingredient = Ingredient.objects.get_or_create(
+            count=count, recipe=self.instance
+        )
+        self.create_ing_name(name, ingredient[0])
+        return ingredient[0]
 
     def create_ings(self, ingredients):
         """Create list of Ingredient."""
-        ings_obj_list = []
-
         for ing in ingredients:
-            ing_name = self.create_ing_name(ing[0].strip())
-            ing_obg = self.create_ings_obj(ing_name, ing[1].strip())
-            ings_obj_list.append(ing_obg)
-
-        return ings_obj_list
+            self.create_ings_obj(ing[0].strip(), ing[1].strip())
 
     @staticmethod
-    def get_ings_list(ingredients_text):
+    def get_ings_list(ingredients_text: str) -> list[list[str, str]]:
         """Split text of ingredients to list of tuple."""
         ings = []
         split_text = map(str.strip, ingredients_text.split('\n'))
@@ -62,7 +61,7 @@ class RecipeForm(forms.ModelForm):
 
         return ings
 
-    def del_ings(self, ingredients):
+    def del_ings(self, ingredients: list[Ingredient]) -> None:
         """Remove Ingredients from Recipe."""
         exiting_ings = self.instance.ingredients.all()
         delete_ings = [ing for ing in exiting_ings if ing not in ingredients]
@@ -76,16 +75,12 @@ class RecipeForm(forms.ModelForm):
 
     def save(self, commit=True):
         recipe = super(RecipeForm, self).save(commit=commit)
-        if not recipe.id:
+        if not self.instance.id:
             recipe.save()
 
         ings_text = self.cleaned_data.get('ingredients_list', None)
         ings_list = self.get_ings_list(ings_text)
-        ings = self.create_ings(ings_list)
-
-        self.del_ings(ings)
-        self.save_ings(ings)
-        self.instance.save()
+        self.create_ings(ings_list)
 
         return recipe
 

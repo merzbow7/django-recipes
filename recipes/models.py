@@ -5,15 +5,16 @@ from django.urls import reverse
 
 
 class IngredientName(models.Model):
-    ing_name = models.CharField(max_length=255, blank=False, db_index=True)
+    name = models.CharField(max_length=255, blank=False, db_index=True)
+    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.ing_name}"
+        return f"{self.name}"
 
 
 class Ingredient(models.Model):
-    name = models.ForeignKey(IngredientName, on_delete=models.CASCADE)
     count = models.CharField(max_length=25, blank=False)
+    recipe = models.ForeignKey('Recipe', on_delete=models.PROTECT)
 
     class Meta:
         app_label = 'recipes'
@@ -21,14 +22,13 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ingredients'
 
     def __str__(self):
-        return f"{self.name.ing_name}"
+        return f"{self.ingredientname_set}"
 
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255, blank=False, db_index=True)
     description = models.TextField()
     cooking = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient, blank=True)
     slug = models.SlugField(max_length=255, blank=True)
 
     class Meta:
