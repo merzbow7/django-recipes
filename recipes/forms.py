@@ -12,7 +12,7 @@ class RecipeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        if self.instance:
+        if self.instance.id:
             self.prepopulate_ingredients()
 
     def prepopulate_ingredients(self) -> None:
@@ -23,30 +23,31 @@ class RecipeForm(forms.ModelForm):
     def get_list_ings(self) -> list[str]:
         """Get ingredients list of current recipe."""
         self.instance: Recipe
-        ings = self.instance.ingredient_set.all()
+        ings = self.instance.ingredients.all()
 
-        return [f"{ing.ingredientname_set.name} - {ing.count}" for ing in ings]
+        return [f"{ing.name.name} - {ing.count}" for ing in ings]
 
-    def create_ing_name(self, name: str, ing) -> None:
+    def create_ing_name(self, name: str) -> IngredientName:
         """Create instance of IngredientName."""
-        IngredientName.objects.get_or_create(
+        return IngredientName.objects.get_or_create(
             name=name,
-            ingredient=ing
-        )
+        )[0]
 
     def create_ings_obj(self, name: str, count: str) -> Ingredient:
         """Create instance of Ingredient."""
         self.instance: Recipe
+        name = self.create_ing_name(name)
         ingredient = Ingredient.objects.get_or_create(
-            count=count, recipe=self.instance
+            count=count,
+            name=name,
         )
-        self.create_ing_name(name, ingredient[0])
+
         return ingredient[0]
 
     def create_ings(self, ingredients):
         """Create list of Ingredient."""
         for ing in ingredients:
-            self.create_ings_obj(ing[0].strip(), ing[1].strip())
+            yield self.create_ings_obj(ing[0].strip(), ing[1].strip())
 
     @staticmethod
     def get_ings_list(ingredients_text: str) -> list[list[str, str]]:
@@ -61,11 +62,12 @@ class RecipeForm(forms.ModelForm):
 
         return ings
 
-    def del_ings(self, ingredients: list[Ingredient]) -> None:
+    def del_ings(self, ingredients) -> None:
         """Remove Ingredients from Recipe."""
         exiting_ings = self.instance.ingredients.all()
         delete_ings = [ing for ing in exiting_ings if ing not in ingredients]
         self.instance.ingredients.remove(*delete_ings)
+        self.instance: Recipe
         for ing in delete_ings:
             ing.delete()
 
@@ -80,7 +82,10 @@ class RecipeForm(forms.ModelForm):
 
         ings_text = self.cleaned_data.get('ingredients_list', None)
         ings_list = self.get_ings_list(ings_text)
-        self.create_ings(ings_list)
+        ings = self.create_ings(ings_list)
+
+        self.del_ings(ings)
+        self.save_ings(ings)
 
         return recipe
 
