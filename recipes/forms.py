@@ -109,8 +109,8 @@ class RecipeForm(forms.ModelForm):
         ingredients_text = self.cleaned_data.get('ingredients_list', None)
         ingredients_list = self.get_ings_list(ingredients_text)
         created_ingredients = self.create_ings(ingredients_list)
-        removable_ingredients = self.del_recipe_ingredients(created_ingredients)
-        self.del_ingredients(removable_ingredients)
+        remove_ingredients = self.del_recipe_ingredients(created_ingredients)
+        self.del_ingredients(remove_ingredients)
 
         return recipe
 
