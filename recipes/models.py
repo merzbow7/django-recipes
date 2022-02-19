@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.urls import reverse
 
 
@@ -41,7 +40,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Recipes'
 
     def __str__(self):
-        return f"{self.title}"
+        return f'{self.title}'
 
     def get_absolute_url(self):
         return reverse('recipe_url', kwargs={'slug': self.slug})

@@ -1,8 +1,30 @@
+"""Admin form for Recipe."""
+
 from collections.abc import Iterable
 
 from django import forms
 
 from recipes.models import Recipe, Ingredient, RecipeIngredient
+
+
+def strip_text(iterable: Iterable) -> Iterable:
+    return map(str.strip, iterable)
+
+
+def create_ing_name(name: str) -> Ingredient:
+    """Create instance of IngredientName."""
+    ingredient = Ingredient.objects.get_or_create(
+        name=name,
+    )
+    return ingredient[0]
+
+
+def del_ingredients(ingredients: list[Ingredient]) -> None:
+    """Remove ingredients."""
+    for ing in ingredients:
+        links = ing.recipeingredient_set.count()
+        if links == 0:
+            ing.delete()
 
 
 class RecipeForm(forms.ModelForm):
@@ -17,10 +39,6 @@ class RecipeForm(forms.ModelForm):
         if self.instance.id:
             self.prepopulate_ingredients()
 
-    @staticmethod
-    def strip_text(iterable: Iterable) -> Iterable:
-        return map(str.strip, iterable)
-
     def prepopulate_ingredients(self) -> None:
         """Fill ingredients field."""
         list_ings = self.get_list_ings()
@@ -32,17 +50,9 @@ class RecipeForm(forms.ModelForm):
         ings = self.instance.recipeingredient_set.all()
         return [f'{ing.name.name} - {ing.amount}' for ing in ings]
 
-    @staticmethod
-    def create_ing_name(name: str) -> Ingredient:
-        """Create instance of IngredientName."""
-        ingredient = Ingredient.objects.get_or_create(
-            name=name,
-        )
-        return ingredient[0]
-
     def create_ings_obj(self, name: str, amount: str) -> RecipeIngredient:
         """Create instance of Ingredient."""
-        name_ing = self.create_ing_name(name)
+        name_ing = create_ing_name(name)
         ingredient = RecipeIngredient.objects.get_or_create(
             amount=amount,
             recipe=self.instance,
@@ -54,8 +64,8 @@ class RecipeForm(forms.ModelForm):
     def create_ings(self, ingredients) -> list[RecipeIngredient]:
         """Create list of Ingredient."""
         ingredients_obj = []
-        for item in ingredients:
-            ing = self.strip_text(item)
+        for ingredients in ingredients:
+            ing = strip_text(ingredients)
             ingredients_obj.append(self.create_ings_obj(*ing))
 
         return ingredients_obj
@@ -63,7 +73,7 @@ class RecipeForm(forms.ModelForm):
     def get_ings_list(self, ingredients_text: str) -> list[list[str, str]]:
         """Split text of ingredients to list of tuple."""
         ings = []
-        split_text = self.strip_text(ingredients_text.split('\n'))
+        split_text = strip_text(ingredients_text.split('\n'))
 
         for ingredient in split_text:
             split = ingredient.split('-', maxsplit=1)
@@ -81,7 +91,6 @@ class RecipeForm(forms.ModelForm):
         for_delete = []
 
         for ing in delete_ings:
-            ing: RecipeIngredient
             links = ing.name.recipeingredient_set.count()
             if links == 1:
                 for_delete.append(ing.name)
@@ -89,20 +98,12 @@ class RecipeForm(forms.ModelForm):
 
         return for_delete
 
-    @staticmethod
-    def del_ingredients(ingredients: list[Ingredient]) -> None:
-        """Remove ingredients."""
-        for ing in ingredients:
-            links = ing.recipeingredient_set.count()
-            if links == 0:
-                ing.delete()
-
     def save_ings(self, ingredients) -> None:
         """Save Ingredients to Recipe."""
         self.instance.ingredients.add(*ingredients)
 
     def save(self, commit=True):
-        recipe = super(RecipeForm, self).save(commit=commit)
+        recipe = super().save(commit=commit)
         if not self.instance.id:
             recipe.save()
 
@@ -110,7 +111,7 @@ class RecipeForm(forms.ModelForm):
         ingredients_list = self.get_ings_list(ingredients_text)
         created_ingredients = self.create_ings(ingredients_list)
         remove_ingredients = self.del_recipe_ingredients(created_ingredients)
-        self.del_ingredients(remove_ingredients)
+        del_ingredients(remove_ingredients)
 
         return recipe
 
