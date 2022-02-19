@@ -17,10 +17,11 @@ services:
 
   # Database
   db:
-    image: postgres:12-alpine
+    image: postgres:14.2-alpine
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: unless-stopped
     ports:
       - 5432:5432
