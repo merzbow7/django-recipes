@@ -9,8 +9,6 @@ COPY . /recipesBook
 
 RUN pip3 install poetry
 
-RUN poetry install
-
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 ENTRYPOINT "/run.sh"

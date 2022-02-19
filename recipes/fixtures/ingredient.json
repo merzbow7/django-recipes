@@ -1,0 +1,142 @@
+[
+{
+  "model": "recipes.ingredient",
+  "pk": 19,
+  "fields": {
+    "name": "Сыр твердый"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 20,
+  "fields": {
+    "name": "Яйцо"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 21,
+  "fields": {
+    "name": "Мука"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 22,
+  "fields": {
+    "name": "Масло растительное"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 23,
+  "fields": {
+    "name": "Картофель"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 24,
+  "fields": {
+    "name": "Яйца"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 25,
+  "fields": {
+    "name": "Соль"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 26,
+  "fields": {
+    "name": "Перец молотый"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 27,
+  "fields": {
+    "name": "Лук репчатый"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 28,
+  "fields": {
+    "name": "Укроп свежий"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 29,
+  "fields": {
+    "name": "Масло сливочное (для жарки)"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 30,
+  "fields": {
+    "name": "Булочка несладкая"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 31,
+  "fields": {
+    "name": "Зелень"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 32,
+  "fields": {
+    "name": "Сыр плавленый бутербродный"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 33,
+  "fields": {
+    "name": "Колбаса"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 34,
+  "fields": {
+    "name": "Морковь"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 35,
+  "fields": {
+    "name": "Сметана жирностью 20 %"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 36,
+  "fields": {
+    "name": "Масло сливочное"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 37,
+  "fields": {
+    "name": "Перец чёрный молотый"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 38,
+  "fields": {
+    "name": "Укроп свежий (для подачи)"
+  }
+}
+]

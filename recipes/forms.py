@@ -6,7 +6,9 @@ from recipes.models import Recipe, Ingredient, RecipeIngredient
 class RecipeForm(forms.ModelForm):
     ingredients_list = forms.CharField(
         widget=forms.Textarea,
-        help_text="Enter the ingredients through a dash",
+        help_text='Enter the ingredients through a dash',
+        label='List of ingredients'
+
     )
 
     def __init__(self, *args, **kwargs) -> None:
@@ -17,13 +19,13 @@ class RecipeForm(forms.ModelForm):
     def prepopulate_ingredients(self) -> None:
         """Fill ingredients field."""
         list_ings = self.get_list_ings()
-        self.fields['ingredients_list'].initial = "\n".join(list_ings)
+        self.fields['ingredients_list'].initial = '\n'.join(list_ings)
 
     def get_list_ings(self) -> list[str]:
         """Get ingredients list of current recipe."""
         self.instance: Recipe
         ings = self.instance.recipeingredient_set.all()
-        return [f"{ing.name.name} - {ing.amount}" for ing in ings]
+        return [f'{ing.name.name} - {ing.amount}' for ing in ings]
 
     @staticmethod
     def create_ing_name(name: str) -> Ingredient:
@@ -63,14 +65,31 @@ class RecipeForm(forms.ModelForm):
 
         return ings
 
-    def del_ings(self, ingredients: list[RecipeIngredient]) -> None:
+    def del_recipe_ingredients(
+            self, ingredients: list[RecipeIngredient],
+    ) -> list[Ingredient]:
         """Remove Ingredients from Recipe."""
         exiting_ings = self.instance.recipeingredient_set.all()
         delete_ings = [ing for ing in exiting_ings if ing not in ingredients]
+        for_delete = []
+
         for ing in delete_ings:
+            ing: RecipeIngredient
+            links = ing.name.recipeingredient_set.count()
+            if links == 1:
+                for_delete.append(ing.name)
             ing.delete()
 
-    def save_ings(self, ingredients):
+        return for_delete
+
+    @staticmethod
+    def remove_ingredients(ingredients: list[Ingredient]) -> None:
+        for ing in ingredients:
+            links = ing.recipeingredient_set.count()
+            if links == 0:
+                ing.delete()
+
+    def save_ings(self, ingredients) -> None:
         """Save Ingredients to Recipe."""
         self.instance.ingredients.add(*ingredients)
 
@@ -79,10 +98,11 @@ class RecipeForm(forms.ModelForm):
         if not self.instance.id:
             recipe.save()
 
-        ings_text = self.cleaned_data.get('ingredients_list', None)
-        ings_list = self.get_ings_list(ings_text)
-        created = self.create_ings(ings_list)
-        self.del_ings(created)
+        ingredients_text = self.cleaned_data.get('ingredients_list', None)
+        ingredients_list = self.get_ings_list(ingredients_text)
+        created_ingredients = self.create_ings(ingredients_list)
+        removable_ingredients = self.del_recipe_ingredients(created_ingredients)
+        self.remove_ingredients(removable_ingredients)
 
         return recipe
 

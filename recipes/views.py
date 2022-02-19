@@ -17,10 +17,24 @@ class FilterRecipesView(ListView):
         params: QueryDict = self.request.GET
         choose = params.get('choose')
         query = params.get('query')
-        btn = params.get('btn')
-        query_set = Recipe.objects.filter(title__icontains=query)
-        print(query_set)
+        if choose == "recipe":
+            query_set = Recipe.objects.filter(
+                title__icontains=query
+            )
+        else:
+            query_set = Recipe.objects.filter(
+                recipeingredient__name__name__icontains=query
+            )
         return query_set
+
+    def get_context_data(self, **kwargs):
+        context = super(FilterRecipesView, self).get_context_data(**kwargs)
+        if self.request.GET.get('choose') == 'ingredient':
+            context['ingredient_select'] = 'selected'
+        else:
+            context['recipe_select'] = 'selected'
+        context['query'] = self.request.GET.get('query')
+        return context
 
 
 class RecipeView(DetailView):
