@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
   app:
-    command: /bin/sh -c "run.sh"
     build: .
     volumes:
       - ./recipeBook:/recipeBook
     env_file:
       - .env
+    command: /bin/sh -c "./run.sh"
     ports:
       - "8000:8000"
     links:
