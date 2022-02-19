@@ -4,17 +4,17 @@ from django.db import models
 from django.urls import reverse
 
 
-class IngredientName(models.Model):
+class Ingredient(models.Model):
     name = models.CharField(max_length=255, blank=False, db_index=True)
-    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
 
 
-class Ingredient(models.Model):
-    count = models.CharField(max_length=25, blank=False)
-    recipe = models.ForeignKey('Recipe', on_delete=models.PROTECT)
+class RecipeIngredient(models.Model):
+    amount = models.CharField(max_length=25, blank=False)
+    name = models.ForeignKey('Ingredient', on_delete=models.PROTECT)
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE)
 
     class Meta:
         app_label = 'recipes'
@@ -22,7 +22,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ingredients'
 
     def __str__(self):
-        return f"{self.ingredientname_set}"
+        return f"{self.name.name}-{self.amount}"
 
 
 class Recipe(models.Model):
