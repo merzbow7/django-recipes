@@ -1,3 +1,5 @@
+from collections.abc import Iterable
+
 from django import forms
 
 from recipes.models import Recipe, Ingredient, RecipeIngredient
@@ -7,14 +9,17 @@ class RecipeForm(forms.ModelForm):
     ingredients_list = forms.CharField(
         widget=forms.Textarea,
         help_text='Enter the ingredients through a dash',
-        label='List of ingredients'
-
+        label='List of ingredients',
     )
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         if self.instance.id:
             self.prepopulate_ingredients()
+
+    @staticmethod
+    def strip_text(iterable: Iterable) -> Iterable:
+        return map(str.strip, iterable)
 
     def prepopulate_ingredients(self) -> None:
         """Fill ingredients field."""
@@ -30,33 +35,35 @@ class RecipeForm(forms.ModelForm):
     @staticmethod
     def create_ing_name(name: str) -> Ingredient:
         """Create instance of IngredientName."""
-        return Ingredient.objects.get_or_create(
-            name=name
-        )[0]
+        ingredient = Ingredient.objects.get_or_create(
+            name=name,
+        )
+        return ingredient[0]
 
     def create_ings_obj(self, name: str, amount: str) -> RecipeIngredient:
         """Create instance of Ingredient."""
         name_ing = self.create_ing_name(name)
         ingredient = RecipeIngredient.objects.get_or_create(
-            amount=amount, recipe=self.instance, name=name_ing
-        )[0]
+            amount=amount,
+            recipe=self.instance,
+            name=name_ing,
+        )
 
-        return ingredient
+        return ingredient[0]
 
-    def create_ings(self, ingredients):
+    def create_ings(self, ingredients) -> list[RecipeIngredient]:
         """Create list of Ingredient."""
         ingredients_obj = []
         for item in ingredients:
-            ing = map(str.strip, item)
+            ing = self.strip_text(item)
             ingredients_obj.append(self.create_ings_obj(*ing))
 
         return ingredients_obj
 
-    @staticmethod
-    def get_ings_list(ingredients_text: str) -> list[list[str, str]]:
+    def get_ings_list(self, ingredients_text: str) -> list[list[str, str]]:
         """Split text of ingredients to list of tuple."""
         ings = []
-        split_text = map(str.strip, ingredients_text.split('\n'))
+        split_text = self.strip_text(ingredients_text.split('\n'))
 
         for ingredient in split_text:
             split = ingredient.split('-', maxsplit=1)
@@ -83,7 +90,8 @@ class RecipeForm(forms.ModelForm):
         return for_delete
 
     @staticmethod
-    def remove_ingredients(ingredients: list[Ingredient]) -> None:
+    def del_ingredients(ingredients: list[Ingredient]) -> None:
+        """Remove ingredients."""
         for ing in ingredients:
             links = ing.recipeingredient_set.count()
             if links == 0:
@@ -102,7 +110,7 @@ class RecipeForm(forms.ModelForm):
         ingredients_list = self.get_ings_list(ingredients_text)
         created_ingredients = self.create_ings(ingredients_list)
         removable_ingredients = self.del_recipe_ingredients(created_ingredients)
-        self.remove_ingredients(removable_ingredients)
+        self.del_ingredients(removable_ingredients)
 
         return recipe
 
