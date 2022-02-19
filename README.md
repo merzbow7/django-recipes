@@ -20,6 +20,12 @@ cd django-recipes
 
 ### Сборка образов и запуск контейнеров
 
+Если локально запущен postgres, остановите его:
+
+```bash
+sudo systemctl stop postgresql
+```
+
 В корне репозитория выполните команду:
 
 ```bash
