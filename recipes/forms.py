@@ -1,13 +1,12 @@
 from django import forms
 
-from recipes.models import Recipe, IngredientName, Ingredient
+from recipes.models import Recipe, Ingredient, RecipeIngredient
 
 
 class RecipeForm(forms.ModelForm):
     ingredients_list = forms.CharField(
         widget=forms.Textarea,
         help_text="Enter the ingredients through a dash",
-        required=False,
     )
 
     def __init__(self, *args, **kwargs) -> None:
@@ -23,31 +22,33 @@ class RecipeForm(forms.ModelForm):
     def get_list_ings(self) -> list[str]:
         """Get ingredients list of current recipe."""
         self.instance: Recipe
-        ings = self.instance.ingredients.all()
+        ings = self.instance.recipeingredient_set.all()
+        return [f"{ing.name.name} - {ing.amount}" for ing in ings]
 
-        return [f"{ing.name.name} - {ing.count}" for ing in ings]
-
-    def create_ing_name(self, name: str) -> IngredientName:
+    @staticmethod
+    def create_ing_name(name: str) -> Ingredient:
         """Create instance of IngredientName."""
-        return IngredientName.objects.get_or_create(
-            name=name,
+        return Ingredient.objects.get_or_create(
+            name=name
         )[0]
 
-    def create_ings_obj(self, name: str, count: str) -> Ingredient:
+    def create_ings_obj(self, name: str, amount: str) -> RecipeIngredient:
         """Create instance of Ingredient."""
-        self.instance: Recipe
-        name = self.create_ing_name(name)
-        ingredient = Ingredient.objects.get_or_create(
-            count=count,
-            name=name,
-        )
+        name_ing = self.create_ing_name(name)
+        ingredient = RecipeIngredient.objects.get_or_create(
+            amount=amount, recipe=self.instance, name=name_ing
+        )[0]
 
-        return ingredient[0]
+        return ingredient
 
     def create_ings(self, ingredients):
         """Create list of Ingredient."""
-        for ing in ingredients:
-            yield self.create_ings_obj(ing[0].strip(), ing[1].strip())
+        ingredients_obj = []
+        for item in ingredients:
+            ing = map(str.strip, item)
+            ingredients_obj.append(self.create_ings_obj(*ing))
+
+        return ingredients_obj
 
     @staticmethod
     def get_ings_list(ingredients_text: str) -> list[list[str, str]]:
@@ -62,12 +63,10 @@ class RecipeForm(forms.ModelForm):
 
         return ings
 
-    def del_ings(self, ingredients) -> None:
+    def del_ings(self, ingredients: list[RecipeIngredient]) -> None:
         """Remove Ingredients from Recipe."""
-        exiting_ings = self.instance.ingredients.all()
+        exiting_ings = self.instance.recipeingredient_set.all()
         delete_ings = [ing for ing in exiting_ings if ing not in ingredients]
-        self.instance.ingredients.remove(*delete_ings)
-        self.instance: Recipe
         for ing in delete_ings:
             ing.delete()
 
@@ -82,10 +81,8 @@ class RecipeForm(forms.ModelForm):
 
         ings_text = self.cleaned_data.get('ingredients_list', None)
         ings_list = self.get_ings_list(ings_text)
-        ings = self.create_ings(ings_list)
-
-        self.del_ings(ings)
-        self.save_ings(ings)
+        created = self.create_ings(ings_list)
+        self.del_ings(created)
 
         return recipe
 

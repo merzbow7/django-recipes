@@ -8,7 +8,7 @@ AdminSite.site_header = "Django Admin Recipes"
 
 
 @admin.register(Ingredient)
-class IngredientAdmint(admin.ModelAdmin):
+class IngredientAdmin(admin.ModelAdmin):
     pass
 
 
