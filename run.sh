@@ -1,6 +1,6 @@
 manage="poetry run python manage.py"
 
-poetry install --no-dev -v
+poetry install --no-dev
 $manage migrate
 $manage loaddata ingredient recipeingredient recipe
 $manage initadmin

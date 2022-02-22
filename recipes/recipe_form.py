@@ -48,7 +48,7 @@ class RecipeForm(forms.ModelForm):
         """Get ingredients list of current recipe."""
         self.instance: Recipe
         ings = self.instance.recipeingredient_set.all()
-        return [f'{ing.name.name} - {ing.amount}' for ing in ings]
+        return [f'{ing.ingredient} - {ing.amount}' for ing in ings]
 
     def create_ings_obj(self, name: str, amount: str) -> RecipeIngredient:
         """Create instance of Ingredient."""
@@ -56,7 +56,7 @@ class RecipeForm(forms.ModelForm):
         ingredient = RecipeIngredient.objects.get_or_create(
             amount=amount,
             recipe=self.instance,
-            name=name_ing,
+            ingredient=name_ing,
         )
 
         return ingredient[0]
@@ -70,7 +70,7 @@ class RecipeForm(forms.ModelForm):
 
         return ingredients_obj
 
-    def get_ings_list(self, ingredients_text: str) -> list[list[str, str]]:
+    def get_ingredients_list(self, ingredients_text: str) -> list[list[str, str]]:
         """Split text of ingredients to list of tuple."""
         ings = []
         split_text = strip_text(ingredients_text.split('\n'))
@@ -91,14 +91,15 @@ class RecipeForm(forms.ModelForm):
         for_delete = []
 
         for ing in delete_ings:
-            links = ing.name.recipeingredient_set.count()
+            ing: RecipeIngredient
+            links = ing.ingredient.recipeingredient_set.count()
             if links == 1:
-                for_delete.append(ing.name)
+                for_delete.append(ing.ingredient)
             ing.delete()
 
         return for_delete
 
-    def save_ings(self, ingredients) -> None:
+    def save_ingredients(self, ingredients) -> None:
         """Save Ingredients to Recipe."""
         self.instance.ingredients.add(*ingredients)
 
@@ -108,7 +109,7 @@ class RecipeForm(forms.ModelForm):
             recipe.save()
 
         ingredients_text = self.cleaned_data.get('ingredients_list', None)
-        ingredients_list = self.get_ings_list(ingredients_text)
+        ingredients_list = self.get_ingredients_list(ingredients_text)
         created_ingredients = self.create_ings(ingredients_list)
         remove_ingredients = self.del_recipe_ingredients(created_ingredients)
         del_ingredients(remove_ingredients)

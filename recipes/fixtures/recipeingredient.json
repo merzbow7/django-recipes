@@ -4,7 +4,7 @@
   "pk": 21,
   "fields": {
     "amount": "300 г",
-    "name": 19,
+    "ingredient": 19,
     "recipe": 4
   }
 },
@@ -13,7 +13,7 @@
   "pk": 22,
   "fields": {
     "amount": "1 шт.",
-    "name": 20,
+    "ingredient": 20,
     "recipe": 4
   }
 },
@@ -22,7 +22,7 @@
   "pk": 23,
   "fields": {
     "amount": "30 г",
-    "name": 21,
+    "ingredient": 21,
     "recipe": 4
   }
 },
@@ -31,7 +31,7 @@
   "pk": 24,
   "fields": {
     "amount": "70 мл",
-    "name": 22,
+    "ingredient": 22,
     "recipe": 4
   }
 },
@@ -40,7 +40,7 @@
   "pk": 25,
   "fields": {
     "amount": "11 шт.",
-    "name": 23,
+    "ingredient": 23,
     "recipe": 5
   }
 },
@@ -49,7 +49,7 @@
   "pk": 26,
   "fields": {
     "amount": "2 шт.",
-    "name": 24,
+    "ingredient": 24,
     "recipe": 5
   }
 },
@@ -58,7 +58,7 @@
   "pk": 27,
   "fields": {
     "amount": "по вкусу",
-    "name": 25,
+    "ingredient": 25,
     "recipe": 5
   }
 },
@@ -67,7 +67,7 @@
   "pk": 28,
   "fields": {
     "amount": "по вкусу",
-    "name": 26,
+    "ingredient": 26,
     "recipe": 5
   }
 },
@@ -76,7 +76,7 @@
   "pk": 29,
   "fields": {
     "amount": "для жарки",
-    "name": 22,
+    "ingredient": 22,
     "recipe": 5
   }
 },
@@ -85,7 +85,7 @@
   "pk": 30,
   "fields": {
     "amount": "500 г",
-    "name": 23,
+    "ingredient": 23,
     "recipe": 6
   }
 },
@@ -94,7 +94,7 @@
   "pk": 31,
   "fields": {
     "amount": "160 г (1 крупный)",
-    "name": 27,
+    "ingredient": 27,
     "recipe": 6
   }
 },
@@ -103,7 +103,7 @@
   "pk": 32,
   "fields": {
     "amount": "2 шт.",
-    "name": 24,
+    "ingredient": 24,
     "recipe": 6
   }
 },
@@ -112,7 +112,7 @@
   "pk": 33,
   "fields": {
     "amount": "3-4 веточки (7 г)",
-    "name": 28,
+    "ingredient": 28,
     "recipe": 6
   }
 },
@@ -121,7 +121,7 @@
   "pk": 34,
   "fields": {
     "amount": "0,5 ч. ложки (по вкусу)",
-    "name": 25,
+    "ingredient": 25,
     "recipe": 6
   }
 },
@@ -130,7 +130,7 @@
   "pk": 35,
   "fields": {
     "amount": "40 г",
-    "name": 29,
+    "ingredient": 29,
     "recipe": 6
   }
 },
@@ -139,7 +139,7 @@
   "pk": 36,
   "fields": {
     "amount": "1 шт.",
-    "name": 30,
+    "ingredient": 30,
     "recipe": 7
   }
 },
@@ -148,7 +148,7 @@
   "pk": 37,
   "fields": {
     "amount": "2 шт.",
-    "name": 24,
+    "ingredient": 24,
     "recipe": 7
   }
 },
@@ -157,7 +157,7 @@
   "pk": 38,
   "fields": {
     "amount": "по вкусу",
-    "name": 31,
+    "ingredient": 31,
     "recipe": 7
   }
 },
@@ -166,7 +166,7 @@
   "pk": 39,
   "fields": {
     "amount": "1 ломтик",
-    "name": 32,
+    "ingredient": 32,
     "recipe": 7
   }
 },
@@ -175,7 +175,7 @@
   "pk": 40,
   "fields": {
     "amount": "3 кусочка",
-    "name": 33,
+    "ingredient": 33,
     "recipe": 7
   }
 },
@@ -184,7 +184,7 @@
   "pk": 41,
   "fields": {
     "amount": "по вкусу",
-    "name": 25,
+    "ingredient": 25,
     "recipe": 7
   }
 },
@@ -193,7 +193,7 @@
   "pk": 42,
   "fields": {
     "amount": "для жарки",
-    "name": 22,
+    "ingredient": 22,
     "recipe": 7
   }
 },
@@ -202,7 +202,7 @@
   "pk": 43,
   "fields": {
     "amount": "630 г (6 шт.)",
-    "name": 23,
+    "ingredient": 23,
     "recipe": 8
   }
 },
@@ -211,7 +211,7 @@
   "pk": 44,
   "fields": {
     "amount": "120 г (1 шт.)",
-    "name": 27,
+    "ingredient": 27,
     "recipe": 8
   }
 },
@@ -220,7 +220,7 @@
   "pk": 45,
   "fields": {
     "amount": "120 г (1 шт.)",
-    "name": 34,
+    "ingredient": 34,
     "recipe": 8
   }
 },
@@ -229,7 +229,7 @@
   "pk": 46,
   "fields": {
     "amount": "100 г",
-    "name": 35,
+    "ingredient": 35,
     "recipe": 8
   }
 },
@@ -238,7 +238,7 @@
   "pk": 47,
   "fields": {
     "amount": "15 мл (1 ст. ложка)",
-    "name": 22,
+    "ingredient": 22,
     "recipe": 8
   }
 },
@@ -247,7 +247,7 @@
   "pk": 48,
   "fields": {
     "amount": "20 г",
-    "name": 36,
+    "ingredient": 36,
     "recipe": 8
   }
 },
@@ -256,7 +256,7 @@
   "pk": 49,
   "fields": {
     "amount": "0,5 ч. ложки (по вкусу)",
-    "name": 25,
+    "ingredient": 25,
     "recipe": 8
   }
 },
@@ -265,7 +265,7 @@
   "pk": 50,
   "fields": {
     "amount": "щепотка",
-    "name": 37,
+    "ingredient": 37,
     "recipe": 8
   }
 },
@@ -274,7 +274,7 @@
   "pk": 51,
   "fields": {
     "amount": "2 веточки",
-    "name": 38,
+    "ingredient": 38,
     "recipe": 8
   }
 }

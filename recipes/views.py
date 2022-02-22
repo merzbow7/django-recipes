@@ -18,21 +18,16 @@ class FilterRecipesView(ListView):
     @property
     def get_params(self) -> tuple[str, str]:
         """Get filter choose and query string."""
-        try:
-            choose = self.request.GET.get('choose')
-        except (ValueError, TypeError):
-            choose = None
-
-        try:
-            query = self.request.GET.get('query')
-        except (ValueError, TypeError):
-            query = None
-
+        choose = self.request.GET.get('choose')
+        query = self.request.GET.get('query')
         return choose, query
 
     def get_queryset(self, **kwargs):
         """Get queryset for filter view."""
         choose, query = self.get_params
+
+        if not query:
+            return Recipe.objects.none()
 
         if choose == 'recipe':
             query_set = Recipe.objects.filter(
@@ -40,7 +35,7 @@ class FilterRecipesView(ListView):
             )
         else:
             query_set = Recipe.objects.filter(
-                recipeingredient__name__name__icontains=query,
+                recipe_ingredients__name__icontains=query,
             )
         return query_set
 

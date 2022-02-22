@@ -9,10 +9,10 @@
             <p class="my-3">{{ object.description }}</p>
             <h5 class="text-center">Ингредиенты:</h5>
             <ul class="my-2">
-                {% for ingredient in object.recipeingredient_set.all %}
+                {% for recipe_ingredient in object.recipeingredient_set.all %}
                     <li>
-                        {{ ingredient.name }}:
-                        {{ ingredient.amount }}
+                        {{ recipe_ingredient.ingredient }}:
+                        {{ recipe_ingredient.amount }}
                     </li>
                 {% endfor %}
             </ul>
