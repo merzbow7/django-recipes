@@ -110,6 +110,7 @@ celerybeat.pid
 
 #environment variables
 .env
+.env.bak
 
 # Environments
 .venv

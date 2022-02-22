@@ -1,281 +1,312 @@
 [
 {
   "model": "recipes.recipeingredient",
-  "pk": 21,
+  "pk": 52,
   "fields": {
-    "amount": "300 г",
-    "ingredient": 19,
-    "recipe": 4
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 22,
-  "fields": {
-    "amount": "1 шт.",
-    "ingredient": 20,
-    "recipe": 4
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 23,
-  "fields": {
-    "amount": "30 г",
-    "ingredient": 21,
-    "recipe": 4
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 24,
-  "fields": {
-    "amount": "70 мл",
-    "ingredient": 22,
-    "recipe": 4
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 25,
-  "fields": {
-    "amount": "11 шт.",
+    "amount": "630",
     "ingredient": 23,
-    "recipe": 5
+    "recipe": 8,
+    "unit": 1
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 26,
+  "pk": 53,
   "fields": {
-    "amount": "2 шт.",
-    "ingredient": 24,
-    "recipe": 5
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 27,
-  "fields": {
-    "amount": "по вкусу",
-    "ingredient": 25,
-    "recipe": 5
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 28,
-  "fields": {
-    "amount": "по вкусу",
-    "ingredient": 26,
-    "recipe": 5
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 29,
-  "fields": {
-    "amount": "для жарки",
-    "ingredient": 22,
-    "recipe": 5
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 30,
-  "fields": {
-    "amount": "500 г",
-    "ingredient": 23,
-    "recipe": 6
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 31,
-  "fields": {
-    "amount": "160 г (1 крупный)",
+    "amount": "120",
     "ingredient": 27,
-    "recipe": 6
+    "recipe": 8,
+    "unit": 2
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 32,
+  "pk": 54,
   "fields": {
-    "amount": "2 шт.",
-    "ingredient": 24,
-    "recipe": 6
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 33,
-  "fields": {
-    "amount": "3-4 веточки (7 г)",
-    "ingredient": 28,
-    "recipe": 6
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 34,
-  "fields": {
-    "amount": "0,5 ч. ложки (по вкусу)",
-    "ingredient": 25,
-    "recipe": 6
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 35,
-  "fields": {
-    "amount": "40 г",
-    "ingredient": 29,
-    "recipe": 6
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 36,
-  "fields": {
-    "amount": "1 шт.",
-    "ingredient": 30,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 37,
-  "fields": {
-    "amount": "2 шт.",
-    "ingredient": 24,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 38,
-  "fields": {
-    "amount": "по вкусу",
-    "ingredient": 31,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 39,
-  "fields": {
-    "amount": "1 ломтик",
-    "ingredient": 32,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 40,
-  "fields": {
-    "amount": "3 кусочка",
-    "ingredient": 33,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 41,
-  "fields": {
-    "amount": "по вкусу",
-    "ingredient": 25,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 42,
-  "fields": {
-    "amount": "для жарки",
-    "ingredient": 22,
-    "recipe": 7
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 43,
-  "fields": {
-    "amount": "630 г (6 шт.)",
-    "ingredient": 23,
-    "recipe": 8
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 44,
-  "fields": {
-    "amount": "120 г (1 шт.)",
-    "ingredient": 27,
-    "recipe": 8
-  }
-},
-{
-  "model": "recipes.recipeingredient",
-  "pk": 45,
-  "fields": {
-    "amount": "120 г (1 шт.)",
+    "amount": "120",
     "ingredient": 34,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 2
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 46,
+  "pk": 55,
   "fields": {
-    "amount": "100 г",
+    "amount": "100",
     "ingredient": 35,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 2
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 47,
+  "pk": 56,
   "fields": {
-    "amount": "15 мл (1 ст. ложка)",
+    "amount": "15",
     "ingredient": 22,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 3
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 48,
+  "pk": 57,
   "fields": {
-    "amount": "20 г",
+    "amount": "20",
     "ingredient": 36,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 2
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 49,
+  "pk": 58,
   "fields": {
-    "amount": "0,5 ч. ложки (по вкусу)",
+    "amount": "по вкусу",
     "ingredient": 25,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 4
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 50,
+  "pk": 59,
   "fields": {
     "amount": "щепотка",
     "ingredient": 37,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 4
   }
 },
 {
   "model": "recipes.recipeingredient",
-  "pk": 51,
+  "pk": 60,
   "fields": {
-    "amount": "2 веточки",
+    "amount": "2",
     "ingredient": 38,
-    "recipe": 8
+    "recipe": 8,
+    "unit": 5
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 61,
+  "fields": {
+    "amount": "1",
+    "ingredient": 30,
+    "recipe": 7,
+    "unit": 6
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 62,
+  "fields": {
+    "amount": "2",
+    "ingredient": 24,
+    "recipe": 7,
+    "unit": 7
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 63,
+  "fields": {
+    "amount": "по вкусу",
+    "ingredient": 31,
+    "recipe": 7,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 64,
+  "fields": {
+    "amount": "1",
+    "ingredient": 32,
+    "recipe": 7,
+    "unit": 8
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 65,
+  "fields": {
+    "amount": "3",
+    "ingredient": 33,
+    "recipe": 7,
+    "unit": 9
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 66,
+  "fields": {
+    "amount": "по вкусу",
+    "ingredient": 25,
+    "recipe": 7,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 67,
+  "fields": {
+    "amount": "для жарки",
+    "ingredient": 22,
+    "recipe": 7,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 68,
+  "fields": {
+    "amount": "500",
+    "ingredient": 23,
+    "recipe": 6,
+    "unit": 2
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 69,
+  "fields": {
+    "amount": "160",
+    "ingredient": 27,
+    "recipe": 6,
+    "unit": 2
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 70,
+  "fields": {
+    "amount": "2",
+    "ingredient": 24,
+    "recipe": 6,
+    "unit": 7
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 71,
+  "fields": {
+    "amount": "3-4",
+    "ingredient": 28,
+    "recipe": 6,
+    "unit": 5
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 72,
+  "fields": {
+    "amount": "по вкусу",
+    "ingredient": 25,
+    "recipe": 6,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 73,
+  "fields": {
+    "amount": "40",
+    "ingredient": 29,
+    "recipe": 6,
+    "unit": 2
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 74,
+  "fields": {
+    "amount": "11",
+    "ingredient": 23,
+    "recipe": 5,
+    "unit": 7
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 75,
+  "fields": {
+    "amount": "2",
+    "ingredient": 24,
+    "recipe": 5,
+    "unit": 7
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 76,
+  "fields": {
+    "amount": "по вкусу",
+    "ingredient": 25,
+    "recipe": 5,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 77,
+  "fields": {
+    "amount": "по вкусу",
+    "ingredient": 26,
+    "recipe": 5,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 78,
+  "fields": {
+    "amount": "для жарки",
+    "ingredient": 22,
+    "recipe": 5,
+    "unit": 4
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 79,
+  "fields": {
+    "amount": "300",
+    "ingredient": 19,
+    "recipe": 4,
+    "unit": 2
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 80,
+  "fields": {
+    "amount": "1",
+    "ingredient": 20,
+    "recipe": 4,
+    "unit": 6
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 81,
+  "fields": {
+    "amount": "30",
+    "ingredient": 21,
+    "recipe": 4,
+    "unit": 1
+  }
+},
+{
+  "model": "recipes.recipeingredient",
+  "pk": 82,
+  "fields": {
+    "amount": "70",
+    "ingredient": 22,
+    "recipe": 4,
+    "unit": 10
   }
 }
 ]

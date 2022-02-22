@@ -1,0 +1,72 @@
+[
+{
+  "model": "recipes.ingredientunit",
+  "pk": 1,
+  "fields": {
+    "name": "г."
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 2,
+  "fields": {
+    "name": "г"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 3,
+  "fields": {
+    "name": "мл"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 4,
+  "fields": {
+    "name": ""
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 5,
+  "fields": {
+    "name": "веточки"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 6,
+  "fields": {
+    "name": "шт."
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 7,
+  "fields": {
+    "name": "шт"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 8,
+  "fields": {
+    "name": "ломтик"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 9,
+  "fields": {
+    "name": "кусочка"
+  }
+},
+{
+  "model": "recipes.ingredientunit",
+  "pk": 10,
+  "fields": {
+    "name": "мл."
+  }
+}
+]
