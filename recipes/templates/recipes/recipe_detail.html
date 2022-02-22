@@ -11,9 +11,9 @@
             <ul class="my-2">
                 {% for recipe_ingredient in object.recipeingredient_set.all %}
                     <li>
-                        {{ recipe_ingredient.ingredient }}<b>:</b>
+                        {{ recipe_ingredient.ingredient_id.name }}<b>:</b>
                         {{ recipe_ingredient.amount }}
-                        {{ recipe_ingredient.unit }}
+                        {{ recipe_ingredient.unit_id.name }}
                     </li>
                 {% endfor %}
             </ul>

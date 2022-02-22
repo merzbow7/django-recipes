@@ -1,10 +1,9 @@
 from django.contrib import admin
-from django.contrib.admin import AdminSite
 
-from .models import Recipe, Ingredient, IngredientUnit
-from .recipe_form import RecipeForm
+from recipes.models import Ingredient, IngredientUnit, Recipe
+from recipes.recipe_form import RecipeForm
 
-AdminSite.site_header = "Django Admin Recipes"
+admin.AdminSite.site_header = 'Django Admin Recipes'
 
 
 @admin.register(Ingredient)
@@ -19,7 +18,7 @@ class IngredientUnitAdmin(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {'slug': ('title',)}
     fields = ('title', 'description', 'ingredients_list', 'cooking', 'slug')
 
     form = RecipeForm

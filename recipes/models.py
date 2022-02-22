@@ -6,7 +6,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255, db_index=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
     class Meta:
         app_label = 'recipes'
@@ -22,7 +22,7 @@ class Recipe(models.Model):
     recipe_ingredients = models.ManyToManyField(
         'Ingredient',
         through='RecipeIngredient',
-        through_fields=('recipe', 'ingredient'),
+        through_fields=('recipe_id', 'ingredient_id'),
     )
 
     class Meta:
@@ -39,9 +39,13 @@ class Recipe(models.Model):
 
 class RecipeIngredient(models.Model):
     amount = models.CharField(max_length=25, blank=False)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    unit = models.ForeignKey('IngredientUnit', on_delete=models.PROTECT, null=True)
+    ingredient_id = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
+    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    unit_id = models.ForeignKey(
+        'IngredientUnit',
+        on_delete=models.PROTECT,
+        null=True,
+    )
 
     class Meta:
         app_label = 'recipes'
@@ -49,7 +53,7 @@ class RecipeIngredient(models.Model):
         verbose_name_plural = 'Ingredients'
 
     def __str__(self):
-        return f'{self.ingredient}-{self.amount}'
+        return f'{self.ingredient_id}-{self.amount}'
 
 
 class IngredientUnit(models.Model):

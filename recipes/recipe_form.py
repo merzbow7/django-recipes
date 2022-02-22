@@ -5,11 +5,12 @@ from typing import NamedTuple
 
 from django import forms
 
-from recipes.models import Recipe, Ingredient, RecipeIngredient, IngredientUnit
+from recipes.models import Ingredient, IngredientUnit, Recipe, RecipeIngredient
 
 
 class TIngredient(NamedTuple):
     """Parsed Ingredient from text field."""
+
     name: str = ''
     amount: str = ''
     unit: str = ''
@@ -19,6 +20,7 @@ IngredientList = list[TIngredient]
 
 
 def strip_text(iterable: Iterable) -> Iterable:
+    """Strip text in Iterable."""
     return tuple(map(str.strip, iterable))
 
 
@@ -39,7 +41,20 @@ def del_ingredients(ingredients: list[Ingredient]) -> None:
 
 
 def create_unit(name):
+    """Create instance of IngredientUnit."""
     return IngredientUnit.objects.get_or_create(name=name)[0]
+
+
+def get_ingredients_list(ingredients_text: str) -> IngredientList:
+    """Split text of ingredients to list of tuple."""
+    ings = []
+    split_text = strip_text(ingredients_text.split('\n'))
+
+    for ingredient in split_text:
+        split_text = re.split('[:_]', ingredient)
+        if 2 <= len(split_text) < 4:
+            ings.append(TIngredient(*strip_text(split_text)))
+    return ings
 
 
 class RecipeForm(forms.ModelForm):
@@ -50,6 +65,7 @@ class RecipeForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs) -> None:
+        """Create form and fill ingredients."""
         super().__init__(*args, **kwargs)
         if self.instance.id:
             self.prepopulate_ingredients()
@@ -62,20 +78,35 @@ class RecipeForm(forms.ModelForm):
     def get_ingredients_text(self) -> list[str]:
         """Get ingredients list of current recipe."""
         self.instance: Recipe
-        ings = self.instance.recipeingredient_set.all()
-        return [f'{ing.ingredient}: {ing.amount}'
-                f'{"_" if ing.unit.name else ""}'
-                f'{ing.unit}' for ing in ings]
+        ingredients = self.instance.recipeingredient_set.all()
+        ingredient_text_list = []
 
-    def create_ingredient_obj(self, ingredient: TIngredient) -> RecipeIngredient:
+        for ingredient in ingredients:
+            underscore = '_' if ingredient.unit_id.name else ''
+
+            ingredient_str = (
+                ingredient.ingredient_id.name,
+                ': ',
+                ingredient.amount,
+                underscore,
+                ingredient.unit_id.name,
+            )
+
+            ingredient_text_list.append(''.join(ingredient_str))
+
+        return ingredient_text_list
+
+    def create_ingredient_obj(
+        self, ingredient: TIngredient,
+    ) -> RecipeIngredient:
         """Create instance of Ingredient."""
         name_ing = create_ing_name(ingredient.name)
         unit = create_unit(ingredient.unit)
         ingredient = RecipeIngredient.objects.get_or_create(
             amount=ingredient.amount,
-            recipe=self.instance,
-            ingredient=name_ing,
-            unit=unit
+            recipe_id=self.instance,
+            ingredient_id=name_ing,
+            unit_id=unit,
         )
 
         return ingredient[0]
@@ -88,19 +119,8 @@ class RecipeForm(forms.ModelForm):
             ingredients_obj.append(ingredient_object)
         return ingredients_obj
 
-    def get_ingredients_list(self, ingredients_text: str) -> IngredientList:
-        """Split text of ingredients to list of tuple."""
-        ings = []
-        split_text = strip_text(ingredients_text.split('\n'))
-
-        for ingredient in split_text:
-            split_text = re.split('[:_]', ingredient)
-            if 2 <= len(split_text) < 4:
-                ings.append(TIngredient(*strip_text(split_text)))
-        return ings
-
     def del_recipe_ingredients(
-            self, ingredients: list[RecipeIngredient],
+        self, ingredients: list[RecipeIngredient],
     ) -> list[Ingredient]:
         """Remove Ingredients from Recipe."""
         exiting_ings = self.instance.recipeingredient_set.all()
@@ -108,25 +128,21 @@ class RecipeForm(forms.ModelForm):
         for_delete = []
 
         for ing in delete_ings:
-            ing: RecipeIngredient
-            links = ing.ingredient.recipeingredient_set.count()
+            links = ing.ingredient_id.recipeingredient_set.count()
             if links == 1:
-                for_delete.append(ing.ingredient)
+                for_delete.append(ing.ingredient_id)
             ing.delete()
 
         return for_delete
 
-    def save_ingredients(self, ingredients) -> None:
-        """Save Ingredients to Recipe."""
-        self.instance.ingredients.add(*ingredients)
-
     def save(self, commit=True):
+        """Save form and process ingredients to models."""
         recipe = super().save(commit=commit)
         if not self.instance.id:
             recipe.save()
 
         ingredients_text = self.cleaned_data.get('ingredients_list', None)
-        ingredients_list = self.get_ingredients_list(ingredients_text)
+        ingredients_list = get_ingredients_list(ingredients_text)
         created_ingredients = self.create_ingredients(ingredients_list)
         remove_ingredients = self.del_recipe_ingredients(created_ingredients)
         del_ingredients(remove_ingredients)

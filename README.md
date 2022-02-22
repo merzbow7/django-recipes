@@ -50,7 +50,7 @@ docker-compose up --build
 - run.sh - обеспечивает инициализацию и выполняется автоматически при старте контейнера.
   * `poetry install --no-dev` - установка пакетов без зависимостей для разработки.
   * `poetry run python manage.py mograte` - применение миграций.
-  * `poetry run python manage.py loaddata ingredient recipeingredient recipe` - загрузка заранее сохранённых фикстур.
+  * `poetry run python manage.py loaddata ingredient ingredientunit recipeingredient recipe` - загрузка заранее сохранённых фикстур.
   * `poetry run python manage.py initadmin` - создание суперпользователя из переменных окружения, исходный код команды в recipes/management/commands/initadmin.py 
   * `poetry run python manage.py runserver 0.0.0.0:8000` - запуск сервера.
   
@@ -64,8 +64,8 @@ docker-compose exec app bash
 ```
 И вводим вышеупомянутые команды или bash-скрипты.
 Так же могут пригодится дополнительные команды:
-*  `poetry run python flush --no-input` - очищает БД.
-*  `poetry run python makemigrations` - Применяет миграции.
+*  `poetry run python flush --no-input` - Очищает БД.
+*  `poetry run python makemigrations` - Создаёт миграции.
 
 ### Работа с админкой Django
 

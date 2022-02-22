@@ -1,0 +1,4 @@
+["setup.cfg".flake8]
+ignore = "D100,D101,D104,D401,W504,RST303,RST304,DAR103,DAR203"
+spellcheck-targets = "comments"
+sql-excepted-names = "EXISTS"
