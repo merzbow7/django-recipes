@@ -120,13 +120,6 @@
 },
 {
   "model": "recipes.ingredient",
-  "pk": 36,
-  "fields": {
-    "name": "Масло сливочное"
-  }
-},
-{
-  "model": "recipes.ingredient",
   "pk": 37,
   "fields": {
     "name": "Перец чёрный молотый"
@@ -137,6 +130,13 @@
   "pk": 38,
   "fields": {
     "name": "Укроп свежий (для подачи)"
+  }
+},
+{
+  "model": "recipes.ingredient",
+  "pk": 41,
+  "fields": {
+    "name": "Масло сливочное"
   }
 }
 ]
